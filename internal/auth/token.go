@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/zalando/go-keyring"
@@ -35,6 +36,10 @@ func SaveToken(token *TokenStore) error {
 }
 
 func LoadToken() (*TokenStore, error) {
+	if token := loadTokenFromEnv(); token != nil {
+		return token, nil
+	}
+
 	payload, err := keyring.Get(KeyringService, tokenKey)
 	if err != nil {
 		if errors.Is(err, keyring.ErrNotFound) {
@@ -67,4 +72,25 @@ func (t *TokenStore) NeedsRefresh() bool {
 		return false
 	}
 	return time.Now().After(t.ExpiresAt.Add(-5 * time.Minute))
+}
+
+func loadTokenFromEnv() *TokenStore {
+	accessToken := os.Getenv("REDDIT_ACCESS_TOKEN")
+	refreshToken := os.Getenv("REDDIT_REFRESH_TOKEN")
+	if accessToken == "" && refreshToken == "" {
+		return nil
+	}
+
+	token := &TokenStore{
+		AccessToken:  accessToken,
+		RefreshToken: refreshToken,
+		ExpiresAt:    time.Now().Add(55 * time.Minute),
+		Username:     os.Getenv("REDDIT_USERNAME"),
+	}
+
+	if accessToken == "" {
+		token.ExpiresAt = time.Now().Add(-time.Minute)
+	}
+
+	return token
 }

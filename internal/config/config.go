@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	configDirName  = ".rd"
+	configDirName  = ".rdcli"
 	configFileName = "config"
 	configFileType = "json"
 )
@@ -36,6 +36,9 @@ func Load() (*Config, error) {
 	v.BindEnv("client_id")
 	v.BindEnv("client_secret")
 	v.BindEnv("user_agent")
+	v.BindEnv("client_id", "REDDIT_CLIENT_ID")
+	v.BindEnv("client_secret", "REDDIT_CLIENT_SECRET")
+	v.BindEnv("user_agent", "REDDIT_USER_AGENT")
 
 	v.SetDefault("user_agent", "reddit-mcp/0.1.0")
 

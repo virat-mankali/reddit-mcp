@@ -10,7 +10,7 @@ import (
 var jsonOutput bool
 
 var rootCmd = &cobra.Command{
-	Use:     "rd",
+	Use:     "rdcli",
 	Short:   "Reddit CLI + MCP",
 	Long:    "Reddit CLI + MCP - browse, post, search Reddit from your terminal.",
 	Version: "0.1.0",
