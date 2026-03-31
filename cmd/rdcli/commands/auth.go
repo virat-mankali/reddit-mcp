@@ -72,7 +72,7 @@ func runAuthLogin(cmd *cobra.Command, args []string) error {
 	}
 
 	if cfg.UserAgent == "" {
-		cfg.UserAgent = "reddit-mcp/0.1.0"
+		cfg.UserAgent = "reddit-mcp/1.0"
 	}
 
 	if err := cfg.Save(); err != nil {

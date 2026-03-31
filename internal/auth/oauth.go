@@ -274,5 +274,5 @@ func (m *Manager) userAgent() string {
 	if m.cfg.UserAgent != "" {
 		return m.cfg.UserAgent
 	}
-	return "reddit-mcp/0.1.0"
+	return "reddit-mcp/1.0"
 }

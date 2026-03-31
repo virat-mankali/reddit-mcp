@@ -40,7 +40,7 @@ func Load() (*Config, error) {
 	v.BindEnv("client_secret", "REDDIT_CLIENT_SECRET")
 	v.BindEnv("user_agent", "REDDIT_USER_AGENT")
 
-	v.SetDefault("user_agent", "reddit-mcp/0.1.0")
+	v.SetDefault("user_agent", "reddit-mcp/1.0")
 
 	if err := v.ReadInConfig(); err != nil {
 		var notFound viper.ConfigFileNotFoundError

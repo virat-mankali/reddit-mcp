@@ -60,6 +60,10 @@ brews:
     install: |
       bin.install "rdcli"
 
+    commit_author:
+      name: virat-mankali
+      email: viratmankali@gmail.com
+
 release:
   github:
     owner: virat-mankali

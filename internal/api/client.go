@@ -29,7 +29,7 @@ type Client struct {
 func NewClient(cfg *config.Config) *Client {
 	userAgent := cfg.UserAgent
 	if userAgent == "" {
-		userAgent = "reddit-mcp/0.1.0"
+		userAgent = "reddit-mcp/1.0"
 	}
 
 	return &Client{

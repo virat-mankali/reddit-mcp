@@ -14,7 +14,7 @@ import (
 func NewServer() *server.MCPServer {
 	s := server.NewMCPServer(
 		"reddit-mcp",
-		"0.1.0",
+		"1.0",
 		server.WithToolCapabilities(true),
 	)
 

@@ -9,7 +9,7 @@ import (
 
 var jsonOutput bool
 var (
-	buildVersion = "0.1.0"
+	buildVersion = "1.0"
 	buildCommit  = "none"
 	buildDate    = "unknown"
 )
