@@ -7,6 +7,7 @@ import (
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
 	"github.com/virat-mankali/reddit-mcp/internal/api"
+	"github.com/virat-mankali/reddit-mcp/internal/auth"
 	"github.com/virat-mankali/reddit-mcp/internal/config"
 )
 
@@ -26,7 +27,7 @@ func newClient() (*api.Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	if cfg.ClientID == "" && cfg.ClientSecret == "" {
+	if cfg.ClientID == "" && cfg.ClientSecret == "" && !auth.HasEnvToken() {
 		return nil, errors.New("not authenticated. Run: rdcli auth login")
 	}
 	return api.NewClient(cfg), nil

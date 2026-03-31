@@ -56,6 +56,10 @@ func LoadToken() (*TokenStore, error) {
 	return &token, nil
 }
 
+func HasEnvToken() bool {
+	return loadTokenFromEnv() != nil
+}
+
 func ClearToken() error {
 	err := keyring.Delete(KeyringService, tokenKey)
 	if errors.Is(err, keyring.ErrNotFound) {

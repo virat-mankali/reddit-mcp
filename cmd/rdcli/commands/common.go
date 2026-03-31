@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/virat-mankali/reddit-mcp/internal/api"
+	"github.com/virat-mankali/reddit-mcp/internal/auth"
 	"github.com/virat-mankali/reddit-mcp/internal/config"
 	"github.com/virat-mankali/reddit-mcp/internal/output"
 )
@@ -16,7 +17,7 @@ func newAPIClient() (*api.Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	if cfg.ClientID == "" && cfg.ClientSecret == "" {
+	if cfg.ClientID == "" && cfg.ClientSecret == "" && !auth.HasEnvToken() {
 		return nil, errors.New("missing Reddit app configuration; run `rdcli auth login` or set REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET")
 	}
 	return api.NewClient(cfg), nil

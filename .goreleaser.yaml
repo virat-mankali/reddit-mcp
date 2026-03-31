@@ -1,0 +1,78 @@
+version: 2
+
+project_name: reddit-mcp
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: rdcli
+    main: ./cmd/rdcli
+    binary: rdcli
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X main.version={{ .Version }}
+      - -X main.commit={{ .Commit }}
+      - -X main.date={{ .Date }}
+
+archives:
+  - ids:
+      - rdcli
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "arm64" }}arm64
+      {{- else }}{{ .Arch }}{{ end }}
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+
+brews:
+  - name: reddit-mcp
+    ids:
+      - rdcli
+    repository:
+      owner: virat-mankali
+      name: homebrew-tap
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
+    directory: Formula
+    homepage: "https://github.com/virat-mankali/reddit-mcp"
+    description: "Reddit CLI + MCP tool for browsing, posting, search, and automation"
+    license: "MIT"
+    test: |
+      system "#{bin}/rdcli --version"
+    install: |
+      bin.install "rdcli"
+
+release:
+  github:
+    owner: virat-mankali
+    name: reddit-mcp
+  draft: false
+  prerelease: auto
+  name_template: "{{ .ProjectName }} v{{ .Version }}"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+      - Merge pull request
