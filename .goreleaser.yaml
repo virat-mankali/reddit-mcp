@@ -46,6 +46,8 @@ brews:
   - name: reddit-mcp
     ids:
       - rdcli
+    goamd64: v1
+    goarm64: v8.0
     repository:
       owner: virat-mankali
       name: homebrew-tap
