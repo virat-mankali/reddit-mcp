@@ -1162,7 +1162,7 @@ Config file: `~/.rd/config.json` (client_id, client_secret, username).
 
 ---
 
-## Getting Reddit Credentials
+## Getting Reddit Credentials.
 
 1. Go to **https://www.reddit.com/prefs/apps**
 2. Click **"create another app"**
